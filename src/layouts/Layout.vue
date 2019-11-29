@@ -12,10 +12,9 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Piggy Bank
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -92,8 +91,6 @@
 
 <script>
 export default {
-  name: 'MyLayout',
-
   data () {
     return {
       leftDrawerOpen: false
