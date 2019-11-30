@@ -13,6 +13,7 @@
         <slot></slot>
         <div class="row">
           <q-btn
+            type="submit"
             color="primary"
             :label="btnPryLabel"
             @click="$emit('submit')"

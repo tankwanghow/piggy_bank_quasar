@@ -54,7 +54,14 @@ export default {
   },
   methods: {
     login() {
-      console.log("Login clicked");
+      this.$axios.post('/tokens', { 
+         user: this.formData 
+      }).then((res) => {
+          console.log(res)
+      }).catch((err) => {
+          console.log(err)
+      })
+
     }
   }
 };
