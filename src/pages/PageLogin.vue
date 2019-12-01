@@ -5,6 +5,7 @@
     btnSecLabel="Register"
     btnSecTo="/signup"
     @submit="login()"
+    :errorMsg="errorMsg"
   >
     <q-input label="Username" dense v-model="formData.username" class="q-mb-md">
       <template v-slot:prepend>
@@ -49,19 +50,31 @@ export default {
       formData: {
         username: "",
         password: ""
-      }
+      },
+      errorMsg: ""
     };
   },
   methods: {
     login() {
-      this.$axios.post('/tokens', { 
-         user: this.formData 
-      }).then((res) => {
-          console.log(res)
-      }).catch((err) => {
-          console.log(err)
-      })
-
+      this.errorMsg = ""
+      this.$axios
+        .post("/tokens", {
+          user: this.formData
+        })
+        .then(res => {
+          this.$router.push("/dashboard");
+        })
+        .catch(err => {
+          if (err.response) {
+            if (err.response.status == 401) {
+              this.errorMsg = "Wrong Username or Password.";
+            } else {
+              this.errorMsg = err.response.statusText;
+            }
+          } else {
+            this.errorMsg = err.message;
+          }
+        });
     }
   }
 };
