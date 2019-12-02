@@ -3,47 +3,38 @@
     <q-header elevated>
       <q-toolbar>
         <q-btn
-          flat
-          dense
-          round
+          flat dense round
           @click="leftDrawerOpen = !leftDrawerOpen"
           icon="menu"
-          aria-label="Menu"
-        />
+          aria-label="Menu"/>
 
-        <q-toolbar-title>
-          Piggy Bank
-        </q-toolbar-title>
+        <q-btn 
+          no-caps flat 
+          label="Piggy Bank" 
+          :to="currentUser.userid ? '/dashboard' : '/'"
+          class="text-h6 text-weight-bolder"/>
+        
+        <q-space/>
+
         <q-btn
           v-if="showLoginBtn"
           to="/login"
-          class="absolute-right"
           icon="lock"
-          no-caps
-          flat
-          dense>
-          Login
-        </q-btn>
+          no-caps flat dense
+          label="Login"/>
         <q-btn
           v-if="currentUser.userid"
           @click="logout()"
-          class="absolute-right"
           icon="exit_to_app"
-          no-caps
-          flat
-          dense>
-          Logout
-        </q-btn>
+          no-caps flat dense
+          label="Logot"/>
 
       </q-toolbar>
     </q-header>
 
     <q-drawer
       v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-2"
-    >
+      show-if-above bordered content-class="bg-grey-2">
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
         <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
@@ -59,8 +50,7 @@
           clickable
           tag="a"
           target="_blank"
-          href="https://github.quasar.dev"
-        >
+          href="https://github.quasar.dev">
           <q-item-section avatar>
             <q-icon name="code" />
           </q-item-section>
@@ -73,8 +63,7 @@
           clickable
           tag="a"
           target="_blank"
-          href="https://chat.quasar.dev"
-        >
+          href="https://chat.quasar.dev">
           <q-item-section avatar>
             <q-icon name="chat" />
           </q-item-section>
@@ -87,8 +76,7 @@
           clickable
           tag="a"
           target="_blank"
-          href="https://forum.quasar.dev"
-        >
+          href="https://forum.quasar.dev">
           <q-item-section avatar>
             <q-icon name="record_voice_over" />
           </q-item-section>
@@ -101,8 +89,7 @@
           clickable
           tag="a"
           target="_blank"
-          href="https://twitter.quasar.dev"
-        >
+          href="https://twitter.quasar.dev">
           <q-item-section avatar>
             <q-icon name="rss_feed" />
           </q-item-section>
@@ -115,8 +102,7 @@
           clickable
           tag="a"
           target="_blank"
-          href="https://facebook.quasar.dev"
-        >
+          href="https://facebook.quasar.dev">
           <q-item-section avatar>
             <q-icon name="public" />
           </q-item-section>
@@ -135,7 +121,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex"
 
 export default {
   data() {
