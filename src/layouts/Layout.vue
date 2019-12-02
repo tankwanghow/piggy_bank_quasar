@@ -14,6 +14,26 @@
         <q-toolbar-title>
           Piggy Bank
         </q-toolbar-title>
+        <q-btn
+          v-if="showLoginBtn"
+          to="/login"
+          class="absolute-right"
+          icon="lock"
+          no-caps
+          flat
+          dense>
+          Login
+        </q-btn>
+        <q-btn
+          v-if="currentUser.userid"
+          @click="logout()"
+          class="absolute-right"
+          icon="exit_to_app"
+          no-caps
+          flat
+          dense>
+          Logout
+        </q-btn>
 
       </q-toolbar>
     </q-header>
@@ -35,7 +55,12 @@
             <q-item-label caption>quasar.dev</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://github.quasar.dev">
+        <q-item
+          clickable
+          tag="a"
+          target="_blank"
+          href="https://github.quasar.dev"
+        >
           <q-item-section avatar>
             <q-icon name="code" />
           </q-item-section>
@@ -44,7 +69,12 @@
             <q-item-label caption>github.com/quasarframework</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://chat.quasar.dev">
+        <q-item
+          clickable
+          tag="a"
+          target="_blank"
+          href="https://chat.quasar.dev"
+        >
           <q-item-section avatar>
             <q-icon name="chat" />
           </q-item-section>
@@ -53,7 +83,12 @@
             <q-item-label caption>chat.quasar.dev</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://forum.quasar.dev">
+        <q-item
+          clickable
+          tag="a"
+          target="_blank"
+          href="https://forum.quasar.dev"
+        >
           <q-item-section avatar>
             <q-icon name="record_voice_over" />
           </q-item-section>
@@ -62,7 +97,12 @@
             <q-item-label caption>forum.quasar.dev</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://twitter.quasar.dev">
+        <q-item
+          clickable
+          tag="a"
+          target="_blank"
+          href="https://twitter.quasar.dev"
+        >
           <q-item-section avatar>
             <q-icon name="rss_feed" />
           </q-item-section>
@@ -71,7 +111,12 @@
             <q-item-label caption>@quasarframework</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://facebook.quasar.dev">
+        <q-item
+          clickable
+          tag="a"
+          target="_blank"
+          href="https://facebook.quasar.dev"
+        >
           <q-item-section avatar>
             <q-icon name="public" />
           </q-item-section>
@@ -90,11 +135,22 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
-  data () {
+  data() {
     return {
       leftDrawerOpen: false
+    };
+  },
+  computed: {
+    ...mapState("auth", ["currentUser"]),
+    showLoginBtn () {
+      return (!this.currentUser.userid && this.$route.name != 'login' && this.$route.name != 'signup')
     }
+  },
+  methods: {
+    ...mapActions("auth", ["logout"])
   }
-}
+};
 </script>

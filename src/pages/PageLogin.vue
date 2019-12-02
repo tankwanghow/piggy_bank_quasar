@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   components: {
     loginForm: require("components/CompLoginForm.vue").default
@@ -55,16 +57,19 @@ export default {
     };
   },
   methods: {
+    ...mapMutations('auth', ['setCurrentUser']),
     login() {
-      this.errorMsg = ""
+      this.errorMsg = "";
       this.$axios
         .post("/tokens", {
           user: this.formData
         })
         .then(res => {
+          this.setCurrentUser(res.data);
           this.$router.push("/dashboard");
         })
         .catch(err => {
+          this.setCurrentUser({});
           if (err.response) {
             if (err.response.status == 401) {
               this.errorMsg = "Wrong Username or Password.";
