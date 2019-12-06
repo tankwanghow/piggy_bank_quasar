@@ -1,12 +1,12 @@
 <template>
   <loginForm
-    title="Register"
-    btnPryLabel="Register"
-    btnSecLabel="Go to Login"
+    :title="$t('auth.labels.register')"
+    :btnPryLabel="$t('auth.labels.register')"
+    :btnSecLabel="$t('auth.labels.gotoLogin')"
     btnSecTo="/login"
     @submit="signup()"
   >
-    <q-input label="Username" dense v-model="formData.username" class="q-mb-md">
+    <q-input :label="$t('auth.labels.name')" dense v-model="formData.username" class="q-mb-md">
       <template v-slot:prepend>
         <q-icon name="account_box" />
       </template>
@@ -19,7 +19,7 @@
       </template>
     </q-input>
 
-    <q-input label="Farm" dense v-model="formData.farm" class="q-mb-md">
+    <q-input :label="$t('auth.labels.farm')" dense v-model="formData.farm" class="q-mb-md">
       <template v-slot:prepend>
         <q-icon name="house" />
       </template>
@@ -31,7 +31,7 @@
         />
       </template>
     </q-input>
-    <q-input label="Email" dense v-model="formData.email" class="q-mb-md">
+    <q-input :label="$t('auth.labels.email')" dense v-model="formData.email" class="q-mb-md">
       <template v-slot:prepend>
         <q-icon name="email" />
       </template>
@@ -45,7 +45,7 @@
     </q-input>
 
     <q-input
-      label="Password"
+      :label="$t('auth.labels.password')"
       dense
       type="password"
       v-model="formData.password"
@@ -63,7 +63,7 @@
       </template>
     </q-input>
     <q-input
-      label="Confirm"
+      :label="$t('auth.labels.retypePassword')"
       dense
       type="password"
       v-model="formData.password_confirmation"

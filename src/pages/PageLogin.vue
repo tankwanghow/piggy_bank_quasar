@@ -1,26 +1,27 @@
 <template>
   <loginForm
-    title="Login"
-    btnPryLabel="Login"
-    btnSecLabel="Register"
+    :title="$t('auth.labels.login')"
+    :btnPryLabel="$t('auth.labels.login')"
+    :btnSecLabel="$t('auth.labels.register')"
     btnSecTo="/signup"
     @submit="login()"
     :errorMsg="errorMsg"
   >
-    <q-input label="Username" dense v-model="formData.username" class="q-mb-md">
+    <q-input :label="$t('auth.labels.email')"
+      dense v-model="formData.email" class="q-mb-md">
       <template v-slot:prepend>
         <q-icon name="account_box" />
       </template>
       <template v-slot:append>
         <q-icon
           name="close"
-          @click="formData.username = ''"
+          @click="formData.email = ''"
           class="cursor-pointer"
         />
       </template>
     </q-input>
     <q-input
-      label="Password"
+      :label="$t('auth.labels.password')"
       dense
       type="password"
       v-model="formData.password"
@@ -50,7 +51,7 @@ export default {
   data() {
     return {
       formData: {
-        username: "",
+        email: "",
         password: ""
       },
       errorMsg: ""
@@ -65,21 +66,21 @@ export default {
           user: this.formData
         })
         .then(res => {
-          this.setCurrentUser(res.data);
-          this.$router.push("/dashboard");
+          this.setCurrentUser(res.data)
+          this.$router.push("/dashboard")
         })
         .catch(err => {
-          this.setCurrentUser({});
+          this.setCurrentUser({})
           if (err.response) {
             if (err.response.status == 401) {
-              this.errorMsg = "Wrong Username or Password.";
+              this.errorMsg = this.$t('auth.errors.invalid_credentials')
             } else {
-              this.errorMsg = err.response.statusText;
+              this.errorMsg = err.response.statusText
             }
           } else {
-            this.errorMsg = err.message;
+            this.errorMsg = err.message
           }
-        });
+        })
     }
   }
 };

@@ -10,7 +10,7 @@
 
         <q-btn 
           no-caps flat 
-          label="Piggy Bank" 
+          :label="$t('appName')"
           :to="currentUser.userid ? '/dashboard' : '/'"
           class="text-h6 text-weight-bolder"/>
         
@@ -21,13 +21,13 @@
           to="/login"
           icon="lock"
           no-caps flat dense
-          label="Login"/>
+          :label="$t('auth.labels.login')"/>
         <q-btn
           v-if="currentUser.userid"
           @click="logout()"
           icon="exit_to_app"
           no-caps flat dense
-          label="Logot"/>
+          :label="$t('auth.labels.logout')"/>
 
       </q-toolbar>
     </q-header>

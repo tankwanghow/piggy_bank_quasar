@@ -24,6 +24,7 @@ export default function ( { store } ) {
 
   Router.beforeEach((to, from, next) => {
     if(to.meta.requireLogin) {
+      var token = Cookies.get('authorization_token')
       if(!store.state.auth.currentUser.userid) {
         next('/login')
       }
@@ -38,7 +39,6 @@ export default function ( { store } ) {
       next()
     }
   })
-  
 
   return Router
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div
-      class="q-mt-md q-mx-auto col-lg-3 col-md-5 col-sm-7 col-xs-10 bg-grey-2 q-pa-md"
+      class="q-mt-md q-mx-auto col-lg-4 col-md-5 col-sm-6 col-xs-10 bg-grey-2 q-pa-md"
     >
       <q-chip v-if="errorMsg" size="md" color="red-2" icon="error">
         {{ errorMsg }}
