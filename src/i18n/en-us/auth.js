@@ -13,9 +13,12 @@ export default {
     farm: 'Farm',
     logout: 'Logout'
   },
+  messages: {
+    good_login: 'Logged In Successfully',
+    logged_out: 'Logged Out, Bye.'
+  },
   errors: {
-    invalid_credentials: 'Email address or password is incorrect.',
-    network_error: 'Network error. Please check your internet connection'
+    invalid_credentials: 'Email address or password is incorrect.'
   }
 
   // submit: 'Submit',

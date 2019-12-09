@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import routes from './routes'
+import { Notify } from 'quasar'
 
 Vue.use(VueRouter)
 
@@ -10,11 +11,11 @@ Vue.use(VueRouter)
  * directly export the Router instantiation
  */
 
-export default function ( { store } ) {
+export default function ({ store }) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
-  
+
     // Leave these as they are and change in quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
@@ -23,14 +24,27 @@ export default function ( { store } ) {
   })
 
   Router.beforeEach((to, from, next) => {
-    if(to.meta.requireLogin) {
-      var token = Cookies.get('authorization_token')
-      if(!store.state.auth.currentUser.userid) {
-        next('/login')
-      }
-      else {
-        next()
-      }
+    if (to.meta.requireLogin) {
+      store.dispatch('auth/fetch')
+        .then(() => {
+          if (!store.state.auth.currentUser.userid) {
+            next('/login')
+          }
+          else { next() }
+        })
+        .catch((err) => {
+          if (err.response) {
+            if(err.response.status == 403) {
+              next('/login')
+            }
+            else {
+              Notify.create({
+                message: err.message,
+                color: 'red'
+              })
+            }
+          }
+        })
     }
     else if ((to.name == 'login' || to.name == 'signup') && store.state.auth.currentUser.userid) {
       next(from.fullPath)

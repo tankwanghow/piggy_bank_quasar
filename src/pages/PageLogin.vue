@@ -68,6 +68,7 @@ export default {
         .then(res => {
           this.setCurrentUser(res.data)
           this.$router.push("/dashboard")
+          this.$q.notify({ message: this.$t('auth.messages.good_login'), color: 'green' })
         })
         .catch(err => {
           this.setCurrentUser({})
