@@ -15,7 +15,8 @@ export default {
   },
   messages: {
     good_login: 'Logged In Successfully',
-    logged_out: 'Logged Out, Bye.'
+    logged_out: 'Logged Out, Bye.',
+    already_logged_in: 'Already logged in.'
   },
   errors: {
     invalid_credentials: 'Email address or password is incorrect.'

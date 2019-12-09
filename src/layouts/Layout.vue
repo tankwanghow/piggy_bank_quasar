@@ -129,6 +129,9 @@ export default {
       leftDrawerOpen: false
     };
   },
+  mounted () {
+    this.fetch()
+  },
   computed: {
     ...mapState("auth", ["currentUser"]),
     showLoginBtn () {
@@ -136,7 +139,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions("auth", ["logout"])
+    ...mapActions("auth", ["logout", "fetch"])
   }
 };
 </script>
+
+<style>
+.piggy_notify {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+</style>

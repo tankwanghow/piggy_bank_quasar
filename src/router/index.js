@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import routes from './routes'
 import { Notify } from 'quasar'
+import { i18n } from 'boot/i18n'
 
 Vue.use(VueRouter)
 
@@ -48,6 +49,10 @@ export default function ({ store }) {
     }
     else if ((to.name == 'login' || to.name == 'signup') && store.state.auth.currentUser.userid) {
       next(from.fullPath)
+      Notify.create({
+        message: i18n.t("auth.messages.already_logged_in"),
+        color: 'orange'
+      })
     }
     else {
       next()
