@@ -1,7 +1,6 @@
 import { axiosInstance } from 'boot/axios'
-import { Cookies } from 'quasar'
+import { Cookies, Notify } from 'quasar'
 import { i18n } from 'boot/i18n'
-import { Notify } from 'quasar'
 
 const CHECK_TOKEN_ROUTE = '/current_user'
 
