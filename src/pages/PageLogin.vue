@@ -5,7 +5,6 @@
     :btnSecLabel="$t('auth.labels.register')"
     btnSecTo="/signup"
     @submit="login()"
-    :errorMsg="errorMsg"
   >
     <q-input :label="$t('auth.labels.email')"
       dense v-model="formData.email" class="q-mb-md">
@@ -53,14 +52,12 @@ export default {
       formData: {
         email: "",
         password: ""
-      },
-      errorMsg: ""
+      }
     };
   },
   methods: {
     ...mapMutations('auth', ['setCurrentUser']),
     login() {
-      this.errorMsg = "";
       this.$axios
         .post("/tokens", {
           user: this.formData
@@ -74,12 +71,10 @@ export default {
           this.setCurrentUser({})
           if (err.response) {
             if (err.response.status == 401) {
-              this.errorMsg = this.$t('auth.errors.invalid_credentials')
-            } else {
-              this.errorMsg = err.response.statusText
-            }
+              this.$q.notify({ message: this.$t('auth.errors.invalid_credentials'), color: 'red' })
+            } 
           } else {
-            this.errorMsg = err.message
+            this.$q.notify({ message: err.message, color: 'red' })
           }
         })
     }
