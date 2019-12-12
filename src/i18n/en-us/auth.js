@@ -19,7 +19,10 @@ export default {
     already_logged_in: 'Already logged in.'
   },
   errors: {
-    invalid_credentials: 'Email address or password is incorrect.'
+    invalid_credentials: 'Email address or password is incorrect.',
+    login_required: 'Please Login before accessing the page.',
+    not_authorize: 'You are not authorize to access this page.',
+    token_expired: 'Token Error or Toke Expired. Please Login Again.'
   }
 
   // submit: 'Submit',
