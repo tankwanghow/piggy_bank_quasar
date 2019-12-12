@@ -21,6 +21,12 @@ export default ({ app, router, store, Vue }) => {
         message: app.i18n.t('errors.network_error'),
         color: 'red'
       })
+    } 
+    else if (error.response.status === 403) {
+      Notify.create({
+         message: app.i18n.t('auth.errors.not_authorize'), 
+         color: 'orange' 
+      })
     }
     return Promise.reject(error)
   })
