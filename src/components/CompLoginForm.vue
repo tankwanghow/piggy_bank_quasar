@@ -3,9 +3,6 @@
     <div
       class="q-mt-md q-mx-auto col-lg-4 col-md-5 col-sm-6 col-xs-10 bg-grey-2 q-pa-md"
     >
-      <q-chip v-if="errorMsg" size="md" color="red-2" icon="error">
-        {{ errorMsg }}
-      </q-chip>
       <div class="text-h6">{{ title }}</div>
       <q-form
         autocorrect="off"
@@ -35,8 +32,7 @@ export default {
     title: String,
     btnPryLabel: String,
     btnSecLabel: String,
-    btnSecTo: String,
-    errorMsg: String
+    btnSecTo: String
   }
 };
 </script>
