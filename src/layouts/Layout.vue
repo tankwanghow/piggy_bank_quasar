@@ -19,14 +19,15 @@
         <q-btn
           v-if="showLoginBtn"
           to="/login"
-          icon="lock"
-          no-caps flat dense
-          :label="$t('auth.labels.login')"/>
+          icon="account_box"
+          no-caps flat rounded
+          :label="$t('auth.labels.login') + ' / ' + $t('auth.labels.register')"/>
+        
         <q-btn
           v-if="currentUser.userid"
           @click="layout_logout()"
           icon="exit_to_app"
-          no-caps flat dense
+          no-caps flat rounded
           :label="$t('auth.labels.logout')"/>
 
       </q-toolbar>

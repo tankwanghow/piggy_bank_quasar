@@ -9,7 +9,7 @@
     <q-input :label="$t('auth.labels.email')"
       dense v-model="formData.email" class="q-mb-md">
       <template v-slot:prepend>
-        <q-icon name="account_box" />
+        <q-icon name="email" />
       </template>
       <template v-slot:append>
         <q-icon
