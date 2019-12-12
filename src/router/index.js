@@ -30,20 +30,17 @@ export default function ({ store }) {
         .then(() => {
           if (!store.state.auth.currentUser.userid) {
             next('/login')
+            Notify.create({ message: i18n.t('auth.errors.login_required'), color: 'orange' })
           }
           else { next() }
         })
         .catch((err) => {
-          if (err.response) {
-            if(err.response.status == 403) {
-              next('/login')
-            }
-            else {
-              Notify.create({
-                message: err.message,
-                color: 'red'
-              })
-            }
+          if(err.response.status === 464) {
+            Notify.create({ message: i18n.t('auth.errors.token_expired'), color: 'red'})
+            store.dispatch('auth/logout')
+            next('/login')
+          } else { 
+            Notify.create({ message: err.message, color: 'red'})
           }
         })
     }
