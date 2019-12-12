@@ -15,10 +15,14 @@ export default {
     }
   },
   mounted () {
-    this.$axios.get('/farms')
-        .then((res) => {
-          this.farms = res.data
-        })
+    this.$axios
+      .get('/farms')
+      .then((res) => {
+        this.farms = res.data
+      })
+      .catch((err) => {
+        this.farms = []
+      })
   }
 }
 </script>
