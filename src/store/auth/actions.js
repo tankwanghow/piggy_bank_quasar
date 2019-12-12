@@ -6,10 +6,7 @@ const CHECK_TOKEN_ROUTE = '/current_user'
 
 export function logout({commit}) {
   commit('setCurrentUser', {})
-  if(this.$router.currentRoute.name !== 'welcome') {
-    this.$router.push("/")
-  }
-  Notify.create({ message: i18n.t('auth.messages.logged_out'), color: 'green' })
+  Cookies.remove('authorization_token')
 }
 
 export async function fetch(state) {
