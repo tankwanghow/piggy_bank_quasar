@@ -24,7 +24,7 @@
           :label="$t('auth.labels.login')"/>
         <q-btn
           v-if="currentUser.userid"
-          @click="logout()"
+          @click="layout_logout()"
           icon="exit_to_app"
           no-caps flat dense
           :label="$t('auth.labels.logout')"/>
@@ -129,8 +129,10 @@ export default {
       leftDrawerOpen: false
     };
   },
-  mounted () {
-    this.fetch()
+  created () {
+    if(!this.currentUser.userid) {
+      this.fetch()
+    }
   },
   computed: {
     ...mapState("auth", ["currentUser"]),
@@ -139,7 +141,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions("auth", ["logout", "fetch"])
+    ...mapActions("auth", ["logout", "fetch"]),
+    layout_logout() {
+      this.logout()
+      this.$q.notify({ message: this.$t('auth.messages.logged_out'), color: 'green' })
+      this.$router.push('/')
+    }
   }
 };
 </script>
