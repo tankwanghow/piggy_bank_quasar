@@ -6,39 +6,38 @@
     btnSecTo="/login"
     @submit="signup()"
   >
-    <q-input :label="$t('auth.labels.name')" dense v-model="formData.username" class="q-mb-md">
+    <q-input 
+      :label="$t('auth.labels.name')" 
+      dense hide-bottom-space
+      class="q-mb-md"
+      v-model="form.data.name"
+      :error-message="errorMsg('name')"
+      :error="!isValid('name')">
       <template v-slot:prepend>
         <q-icon name="account_box" />
       </template>
       <template v-slot:append>
         <q-icon
           name="close"
-          @click="formData.username = ''"
+          @click="form.data.name = ''"
           class="cursor-pointer"
         />
       </template>
     </q-input>
 
-    <q-input :label="$t('auth.labels.farm')" dense v-model="formData.farm" class="q-mb-md">
-      <template v-slot:prepend>
-        <q-icon name="house" />
-      </template>
-      <template v-slot:append>
-        <q-icon
-          name="close"
-          @click="formData.farm = ''"
-          class="cursor-pointer"
-        />
-      </template>
-    </q-input>
-    <q-input :label="$t('auth.labels.email')" dense v-model="formData.email" class="q-mb-md">
+    <q-input :label="$t('auth.labels.email')" 
+      dense hide-bottom-space
+      v-model="form.data.email" 
+      class="q-mb-md"
+      :error-message="errorMsg('email')"
+      :error="!isValid('email')">
       <template v-slot:prepend>
         <q-icon name="email" />
       </template>
       <template v-slot:append>
         <q-icon
           name="close"
-          @click="formData.email = ''"
+          @click="form.data.email = ''"
           class="cursor-pointer"
         />
       </template>
@@ -46,36 +45,38 @@
 
     <q-input
       :label="$t('auth.labels.password')"
-      dense
+      dense hide-bottom-space
       type="password"
-      v-model="formData.password"
+      v-model="form.data.password"
       class="q-mb-md"
-    >
+      :error-message="errorMsg('password')"
+      :error="!isValid('password')">
       <template v-slot:prepend>
         <q-icon name="lock" />
       </template>
       <template v-slot:append>
         <q-icon
           name="close"
-          @click="formData.password = ''"
+          @click="form.data.password = ''"
           class="cursor-pointer"
         />
       </template>
     </q-input>
     <q-input
       :label="$t('auth.labels.retypePassword')"
-      dense
+      dense hide-bottom-space
       type="password"
-      v-model="formData.password_confirmation"
+      v-model="form.data.password_confirmation"
       class="q-mb-md"
-    >
+      :error-message="errorMsg('password_confirmation')"
+      :error="!isValid('password_confirmation')">
       <template v-slot:prepend>
         <q-icon name="lock" />
       </template>
       <template v-slot:append>
         <q-icon
           name="close"
-          @click="formData.password_confirmation = ''"
+          @click="form.data.password_confirmation = ''"
           class="cursor-pointer"
         />
       </template>
@@ -84,24 +85,50 @@
 </template>
 
 <script>
+import share from 'components/utils'
+
 export default {
   components: {
     loginForm: require("components/CompLoginForm.vue").default
   },
   data() {
     return {
-      formData: {
-        username: "",
-        farm: "",
-        email: "",
-        password: "",
-        password_confirmation: ""
+      form: {
+        data: {
+          name: "",
+          email: "",
+          password: "",
+          password_confirmation: ""
+        }
       }
-    };
+    }
   },
+  mixins: [share],
   methods: {
     signup() {
-      console.log("signup clicked");
+      this.$axios
+        .post("/users", {
+          user: this.form.data
+        })
+        .then(res => {
+          this.$q.notify({ message: this.$t('auth.messages.good_signup'), color: 'green' })
+          this.$store.dispatch('auth/login', { 
+            user: { 
+              email: this.form.data.email, 
+              password: this.form.data.password 
+            }
+          })
+          .then(res => {this.$router.push("/dashboard") } )
+        })
+        .catch(err => {
+          if (err.response) {
+            if (err.response.status == 422) {
+              this.form.error = err.response.data
+            }
+          } else {
+            this.$q.notify({ message: err.message, color: 'red' })
+          }
+        })
     }
   }
 };
