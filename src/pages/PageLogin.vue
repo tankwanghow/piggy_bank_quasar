@@ -56,19 +56,10 @@ export default {
     };
   },
   methods: {
-    ...mapMutations('auth', ['setCurrentUser']),
     login() {
-      this.$axios
-        .post("/tokens", {
-          user: this.formData
-        })
-        .then(res => {
-          this.setCurrentUser(res.data)
-          this.$router.push("/dashboard")
-          this.$q.notify({ message: this.$t('auth.messages.good_login'), color: 'green' })
-        })
+      this.$store.dispatch('auth/login', { user: this.formData } )
+        .then(res => { this.$router.push("/dashboard") })
         .catch(err => {
-          this.setCurrentUser({})
           if (err.response) {
             if (err.response.status == 401) {
               this.$q.notify({ message: this.$t('auth.errors.invalid_credentials'), color: 'red' })
@@ -79,5 +70,5 @@ export default {
         })
     }
   }
-};
+}
 </script>
