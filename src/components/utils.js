@@ -12,11 +12,14 @@ export default {
     errorMsg(field_name) {
       var errField = this.form.error[field_name] 
       if (errField) {
-        return i18n.t('field_errors.' + underscore(errField[0]))
+        return i18n.t('field_errors.' + this.underscore(errField[0]))
       }
       else {
         return ''
       }
+    },
+   underscore(str) {
+      return str.replace(/[^\wèéòàùì\s]/gi, '').replace(/\s/g, '_').toLowerCase()
     }
   },
   data() {
@@ -26,8 +29,4 @@ export default {
       }
     }
   }
-}
-
-function underscore(str) {
-  return str.replace(/[^\wèéòàùì\s]/gi, '').replace(/\s/g, '_').toLowerCase()
 }

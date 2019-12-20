@@ -1,5 +1,5 @@
 <template>
-  <loginForm
+  <signupForm
     :title="$t('auth.labels.register')"
     :btnPryLabel="$t('auth.labels.register')"
     :btnSecLabel="$t('auth.labels.gotoLogin')"
@@ -81,7 +81,7 @@
         />
       </template>
     </q-input>
-  </loginForm>
+  </signupForm>
 </template>
 
 <script>
@@ -89,7 +89,7 @@ import share from 'components/utils'
 
 export default {
   components: {
-    loginForm: require("components/CompLoginForm.vue").default
+    signupForm: require("components/Comp2ButtonForm.vue").default
   },
   data() {
     return {
@@ -124,6 +124,7 @@ export default {
           if (err.response) {
             if (err.response.status == 422) {
               this.form.error = err.response.data
+              this.$q.notify({ message: this.$t('field_errors.data_validation_error'), color: 'red' })
             }
           } else {
             this.$q.notify({ message: err.message, color: 'red' })

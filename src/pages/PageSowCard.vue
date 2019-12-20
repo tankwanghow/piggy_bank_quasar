@@ -13,16 +13,6 @@ export default {
     return {
       farms: []
     }
-  },
-  mounted () {
-    this.$axios
-      .get('/farms')
-      .then((res) => {
-        this.farms = res.data
-      })
-      .catch((err) => {
-        this.farms = []
-      })
   }
 }
 </script>

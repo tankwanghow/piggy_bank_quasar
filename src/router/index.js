@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import routes from './routes'
-import { Notify } from 'quasar'
+import { Notify, format } from 'quasar'
 import { i18n } from 'boot/i18n'
 
 Vue.use(VueRouter)
@@ -31,6 +31,9 @@ export default function ({ store }) {
           if (!store.state.auth.currentUser.userid) {
             next('/login')
             Notify.create({ message: i18n.t('auth.errors.login_required'), color: 'orange' })
+          } else if (store.state.auth.currentUser.farms.length === 0 && 
+                     to.name !== 'dashboard' && to.name !== 'farm') {
+            next('/dashboard')
           }
           else { next() }
         })

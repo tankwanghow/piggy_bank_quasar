@@ -48,7 +48,7 @@ module.exports = function (ctx) {
       directives: [],
 
       // Quasar plugins
-      plugins: ['Cookies', 'Notify']
+      plugins: ['Cookies', 'Notify', 'QDialog']
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie

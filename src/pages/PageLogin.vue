@@ -45,7 +45,7 @@ import { mapMutations } from 'vuex'
 
 export default {
   components: {
-    loginForm: require("components/CompLoginForm.vue").default
+    loginForm: require("components/Comp2ButtonForm.vue").default
   },
   data() {
     return {
@@ -58,7 +58,9 @@ export default {
   methods: {
     login() {
       this.$store.dispatch('auth/login', { user: this.formData } )
-        .then(res => { this.$router.push("/dashboard") })
+        .then(res => {
+          this.$router.push("/dashboard") 
+          })
         .catch(err => {
           if (err.response) {
             if (err.response.status == 401) {

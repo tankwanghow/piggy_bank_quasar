@@ -29,6 +29,12 @@ const routes = [
         path: '/signup',
         name: 'signup', 
         component: () => import('pages/PageSignup.vue')
+      },
+      {
+        path: '/farm',
+        name: 'farm',
+        meta: { requireLogin: true }, 
+        component: () => import('pages/PageFarm.vue')
       }
     ]
   }
