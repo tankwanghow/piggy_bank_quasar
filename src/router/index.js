@@ -60,7 +60,6 @@ export default function ({ store }) {
     else if ((to.name == 'login' || to.name == 'signup') && store.state.auth.currentUser.userid) {
       Loading.hide()
       next(from.fullPath)
-
       Notify.create({
         message: i18n.t("auth.messages.already_logged_in"),
         color: 'orange'
