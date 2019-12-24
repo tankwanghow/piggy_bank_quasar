@@ -32,12 +32,16 @@ export default ({ app, router, store, Vue }) => {
         message: app.i18n.t('errors.network_error'),
         color: 'red'
       })
-    } 
-    else if (error.response.status === 403) {
+    } else if(error.response.status === 464) {
+      Notify.create({ message: i18n.t('auth.errors.token_expired'), color: 'red'})
+      store.dispatch('auth/logout')
+      next('/login')
+    } else if (error.response.status === 403) {
       Notify.create({
-         message: app.i18n.t('auth.errors.not_authorize'), 
-         color: 'orange' 
+         message: app.i18n.t('auth.errors.not_authorize'), color: 'orange' 
       })
+    } else { 
+      Notify.create({ message: error.message, color: 'red'})
     }
     Loading.hide()
     return Promise.reject(error)
