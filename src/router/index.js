@@ -28,40 +28,47 @@ export default function ({ store }) {
   Router.beforeEach((to, from, next) => {
     Loading.show()
     if (to.meta.requireLogin) {
-      store.dispatch('auth/fetch')
-        .then(() => {
-          if (!store.state.auth.currentUser.userid) {
-            next('/login')
-            Notify.create({ message: i18n.t('auth.errors.login_required'), color: 'orange' })
-          } else if (store.state.auth.currentUser.farms.length === 0 && 
-                     to.name !== 'dashboard' && to.name !== 'farm') {
-            next('/dashboard')
-          }
-          else { next() }
-          Loading.hide()
-        })
-        .catch((err) => {
-          if(err.response.status === 464) {
-            Notify.create({ message: i18n.t('auth.errors.token_expired'), color: 'red'})
-            store.dispatch('auth/logout')
-            next('/login')
-          } else { 
-            Notify.create({ message: err.message, color: 'red'})
-          }
-          Loading.hide()
-        })
+      if (!store.state.auth.currentUser.userid) {
+        Loading.hide()
+        next('/login')
+        Notify.create({ message: i18n.t('auth.errors.login_required'), color: 'orange' })
+      } else {
+        store.dispatch('auth/fetch')
+          .then(() => {
+            Loading.hide()
+            if (store.state.auth.currentUser.farms.length === 0 &&
+              to.name !== 'dashboard' && to.name !== 'farm') {
+              next('/dashboard')
+            }
+            else { next() }
+          })
+          .catch((err) => {
+            Loading.hide()
+            if (err.response.status === 464) {
+              Notify.create({ message: i18n.t('auth.errors.token_expired'), color: 'red' })
+              store.dispatch('auth/logout')
+              next('/login')
+            } else if (err.response.status === 403) {
+              Notify.create({ message: i18n.t('auth.errors.not_authorize'), color: 'orange' })
+            }
+            else {
+              Notify.create({ message: err.message, color: 'red' })
+            }
+          })
+      }
     }
     else if ((to.name == 'login' || to.name == 'signup') && store.state.auth.currentUser.userid) {
+      Loading.hide()
       next(from.fullPath)
+
       Notify.create({
         message: i18n.t("auth.messages.already_logged_in"),
         color: 'orange'
       })
-      Loading.hide()
     }
     else {
-      next()
       Loading.hide()
+      next()
     }
   })
   return Router
