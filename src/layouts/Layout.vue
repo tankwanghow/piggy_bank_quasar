@@ -146,7 +146,9 @@ export default {
     layout_logout() {
       this.logout()
       this.$q.notify({ message: this.$t('auth.messages.logged_out'), color: 'green' })
-      this.$router.push('/')
+      if (this.$router.currentRoute.name !== 'welcome') {
+        this.$router.push('/')
+      }
     }
   }
 };
