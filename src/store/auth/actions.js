@@ -7,7 +7,6 @@ const LOGIN_ROUTE = '/tokens'
 
 export function login (state, data) {
   const p = new Promise(function (resolve, reject) {
-    Notify.create({ message: i18n.t('auth.messages.logging_in'), color: 'orange' })
     return axiosInstance
       .post(LOGIN_ROUTE, data)
       .then(response => {

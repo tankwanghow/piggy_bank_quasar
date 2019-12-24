@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import { Notify } from 'quasar'
+import { Loading } from 'quasar'
 
 // We create our own axios instance and set a custom base URL.
 // Note that if we wouldn't set any config here we do not need
@@ -13,7 +14,17 @@ const axiosInstance = axios.create({
 // that we can later use inside .js files:
 
 export default ({ app, router, store, Vue }) => {
+  axiosInstance.interceptors.request.use((request) => {
+    Loading.show()
+    return request
+  }), (error) => {
+    Loading.show()
+    return Promise.reject(error)
+  }
+
+
   axiosInstance.interceptors.response.use((response) => {
+    Loading.hide()
     return response
   }, (error) => {
     if (!error.response) {
@@ -28,6 +39,7 @@ export default ({ app, router, store, Vue }) => {
          color: 'orange' 
       })
     }
+    Loading.hide()
     return Promise.reject(error)
   })
 }

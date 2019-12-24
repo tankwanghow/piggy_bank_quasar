@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import routes from './routes'
 import { Notify, format } from 'quasar'
 import { i18n } from 'boot/i18n'
+import { Loading } from 'quasar'
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,7 @@ export default function ({ store }) {
   })
 
   Router.beforeEach((to, from, next) => {
+    Loading.show()
     if (to.meta.requireLogin) {
       store.dispatch('auth/fetch')
         .then(() => {
@@ -36,6 +38,7 @@ export default function ({ store }) {
             next('/dashboard')
           }
           else { next() }
+          Loading.hide()
         })
         .catch((err) => {
           if(err.response.status === 464) {
@@ -45,6 +48,7 @@ export default function ({ store }) {
           } else { 
             Notify.create({ message: err.message, color: 'red'})
           }
+          Loading.hide()
         })
     }
     else if ((to.name == 'login' || to.name == 'signup') && store.state.auth.currentUser.userid) {
@@ -53,11 +57,12 @@ export default function ({ store }) {
         message: i18n.t("auth.messages.already_logged_in"),
         color: 'orange'
       })
+      Loading.hide()
     }
     else {
       next()
+      Loading.hide()
     }
   })
-
   return Router
 }
