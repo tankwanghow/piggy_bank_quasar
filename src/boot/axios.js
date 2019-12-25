@@ -40,9 +40,10 @@ export default ({ app, router, store, Vue }) => {
       Notify.create({
          message: app.i18n.t('auth.errors.not_authorize'), color: 'orange' 
       })
-    } else { 
-      Notify.create({ message: error.message, color: 'red'})
-    }
+    } 
+    // else { 
+    //   Notify.create({ message: error.message, color: 'red'})
+    // }
     Loading.hide()
     return Promise.reject(error)
   })

@@ -89,7 +89,7 @@ import share from 'components/utils'
 
 export default {
   components: {
-    signupForm: require("components/Comp2ButtonForm.vue").default
+    signupForm: require("components/comp2ButtonForm.vue").default
   },
   data() {
     return {

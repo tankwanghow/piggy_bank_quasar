@@ -45,7 +45,7 @@ import { mapMutations } from 'vuex'
 
 export default {
   components: {
-    loginForm: require("components/Comp2ButtonForm.vue").default
+    loginForm: require("components/comp2ButtonForm.vue").default
   },
   data() {
     return {

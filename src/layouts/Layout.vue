@@ -3,116 +3,125 @@
     <q-header elevated>
       <q-toolbar>
         <q-btn
-          flat dense round
+          flat
+          dense
+          round
           @click="leftDrawerOpen = !leftDrawerOpen"
           icon="menu"
-          aria-label="Menu"/>
+          aria-label="Menu"
+        />
 
-        <q-btn 
-          no-caps flat 
+        <q-btn
+          no-caps
+          flat
           :label="$t('appName')"
           :to="currentUser.userid ? '/dashboard' : '/'"
-          class="text-h6 text-weight-bolder"/>
-        
-        <q-space/>
+          class="text-h6 text-weight-bolder"
+        />
+
+        <q-space />
 
         <q-btn
           v-if="showLoginBtn"
           to="/login"
           icon="account_box"
-          no-caps flat rounded
-          :label="$t('auth.labels.login') + ' / ' + $t('auth.labels.register')"/>
-        
-        <q-btn
-          v-if="currentUser.userid"
-          @click="layout_logout()"
-          icon="exit_to_app"
-          no-caps flat rounded
-          :label="$t('auth.labels.logout')"/>
+          no-caps
+          flat
+          rounded
+          :label="$t('auth.labels.login') + ' / ' + $t('auth.labels.register')"
+        />
 
+        <q-btn-dropdown
+          v-if="currentUser.userid"
+          flat
+          rounded
+          no-caps
+          :label="profileBtnLabel"
+        >        
+          <q-list dense class="text-center">
+            <q-item>
+              <q-item-section>
+                <q-item-label class="text-weight-bold">
+                  <q-avatar icon="house" />
+                  Farm
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-separator horizontal inset />
+
+            <q-item clickable v-close-popup>
+              <q-item-section>
+                <q-item-label>
+                  Change
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-close-popup :to="{ name: 'edit farm', params: { id: currentFarm.id } }">
+              <q-item-section>
+                <q-item-label>
+                  Edit
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-close-popup>
+              <q-item-section>
+                <q-item-label>
+                  Join
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-close-popup to='/createFarm'>
+              <q-item-section>
+                <q-item-label>
+                  New
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-separator horizontal />
+
+            <q-item>
+              <q-item-section>
+                <q-item-label class="text-weight-bold">
+                  <q-avatar icon="account_box" />
+                  Account
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-separator horizontal inset />
+
+            <q-item clickable v-close-popup>
+              <q-item-section>
+                <q-item-label>
+                  Profile
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-close-popup @click="layout_logout">
+              <q-item-section>
+                <q-item-label>
+                  Logout
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
       </q-toolbar>
     </q-header>
 
     <q-drawer
       v-model="leftDrawerOpen"
-      show-if-above bordered content-class="bg-grey-2">
-      <q-list>
-        <q-item-label header>Essential Links</q-item-label>
-        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="school" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Docs</q-item-label>
-            <q-item-label caption>quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item
-          clickable
-          tag="a"
-          target="_blank"
-          href="https://github.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="code" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Github</q-item-label>
-            <q-item-label caption>github.com/quasarframework</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item
-          clickable
-          tag="a"
-          target="_blank"
-          href="https://chat.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="chat" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Discord Chat Channel</q-item-label>
-            <q-item-label caption>chat.quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item
-          clickable
-          tag="a"
-          target="_blank"
-          href="https://forum.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="record_voice_over" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Forum</q-item-label>
-            <q-item-label caption>forum.quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item
-          clickable
-          tag="a"
-          target="_blank"
-          href="https://twitter.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="rss_feed" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Twitter</q-item-label>
-            <q-item-label caption>@quasarframework</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item
-          clickable
-          tag="a"
-          target="_blank"
-          href="https://facebook.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="public" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Facebook</q-item-label>
-            <q-item-label caption>@QuasarFramework</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
+      show-if-above
+      bordered
+      content-class="bg-grey-2"
+    >
+      <q-list> </q-list>
     </q-drawer>
 
     <q-page-container>
@@ -122,7 +131,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
@@ -130,24 +139,51 @@ export default {
       leftDrawerOpen: false
     };
   },
-  created () {
-    if(!this.currentUser.userid) {
-      this.fetch()
+  created() {
+    if (!this.currentUser.userid) {
+      this.fetch();
     }
   },
   computed: {
     ...mapState("auth", ["currentUser"]),
-    showLoginBtn () {
-      return (!this.currentUser.userid && this.$route.name != 'login' && this.$route.name != 'signup')
+    showLoginBtn() {
+      return (
+        !this.currentUser.userid &&
+        this.$route.name != "login" &&
+        this.$route.name != "signup"
+      );
+    },
+    currentFarm() {
+      return this.currentUser.farms.find(
+        e => e.id === this.currentUser.current_farm_id
+      );
+    },
+    profileBtnLabel() {
+      var curFarm = this.currentFarm;
+      var ename = this.currentUser.email.split("@")[0];
+      if (curFarm) {
+        return ename + " in " + curFarm.nickname;
+      } else {
+        return ename;
+      }
+    },
+    showChangeFarm() {
+      return this.currentUser.farms.length > 1;
+    },
+    showEditFarm() {
+      return this.currentFarm.farm_id;
     }
   },
   methods: {
     ...mapActions("auth", ["logout", "fetch"]),
     layout_logout() {
-      this.logout()
-      this.$q.notify({ message: this.$t('auth.messages.logged_out'), color: 'green' })
-      if (this.$router.currentRoute.name !== 'welcome') {
-        this.$router.push('/')
+      this.logout();
+      this.$q.notify({
+        message: this.$t("auth.messages.logged_out"),
+        color: "green"
+      });
+      if (this.$router.currentRoute.name !== "welcome") {
+        this.$router.push("/");
       }
     }
   }

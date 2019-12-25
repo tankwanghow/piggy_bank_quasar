@@ -4,6 +4,7 @@ export default {
     create_farm: 'Create Farm',
     edit_farm: 'Edit Farm',
     name: 'Name',
+    nickname: 'Nickname',
     address: 'Address',
     zipcode: 'ZipCode',
     city: 'City',

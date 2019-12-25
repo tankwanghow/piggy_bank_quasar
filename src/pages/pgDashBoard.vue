@@ -85,7 +85,7 @@ export default {
     join_farm() {
       if (this.farm != "" & this.farm != null) {
         this.can_join = true;
-        return this.$t("farm.labels.joining") + " => " + this.farm;
+        return this.$t("farm.labels.joining") + " => " + this.farm.label;
       } else {
         this.can_join = false;
       }
@@ -100,10 +100,8 @@ export default {
     joinFarm () {
       this.$axios
         .post('/farm_users', { 
-          params: { 
-            farm_name: this.farm,
-            userid: this.$store.state.auth.currentUser.userid
-          }
+            farm_id: this.farm.value,
+            user_id: this.$store.state.auth.currentUser.userid
         })
         .then(res => {
           this.error_farm_message = ""

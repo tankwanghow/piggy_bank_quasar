@@ -7,34 +7,40 @@ const routes = [
       {
         path: '',
         name: 'welcome',
-        component: () => import('pages/PageWelcome.vue')
+        component: () => import('pages/pgWelcome.vue')
       },
       {
         path: '/dashboard',
         meta: { requireLogin: true }, 
         name: 'dashboard', 
-        component: () => import('pages/PageDashBoard.vue')
+        component: () => import('pages/pgDashBoard.vue')
       },
       {
         path: '/sowcard',
         meta: { requireLogin: true }, 
-        component: () => import('pages/PageSowCard.vue')
+        component: () => import('pages/pgSowCard.vue')
       },
       {
         path: '/login',
         name: 'login', 
-        component: () => import('pages/PageLogin.vue')
+        component: () => import('pages/pgLogin.vue')
       },
       {
         path: '/signup',
         name: 'signup', 
-        component: () => import('pages/PageSignup.vue')
+        component: () => import('pages/pgSignup.vue')
       },
       {
-        path: '/farm',
-        name: 'farm',
+        path: '/createFarm',
+        name: 'create farm',
         meta: { requireLogin: true }, 
-        component: () => import('pages/PageFarm.vue')
+        component: () => import('pages/farm/create.vue')
+      },
+      {
+        path: '/editFarm/:id',
+        name: 'edit farm',
+        meta: { requireLogin: true }, 
+        component: () => import('pages/farm/edit.vue')
       }
     ]
   }
