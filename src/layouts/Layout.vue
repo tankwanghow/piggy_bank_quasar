@@ -37,7 +37,7 @@
           rounded
           no-caps
           :label="profileBtnLabel"
-        >        
+        >
           <q-list dense class="text-center">
             <q-item>
               <q-item-section>
@@ -50,7 +50,7 @@
 
             <q-separator horizontal inset />
 
-            <q-item clickable v-close-popup>
+            <q-item clickable v-close-popup to="/changeFarm">
               <q-item-section>
                 <q-item-label>
                   Change
@@ -58,7 +58,12 @@
               </q-item-section>
             </q-item>
 
-            <q-item clickable v-close-popup :to="{ name: 'edit farm', params: { id: currentFarm.id } }">
+            <q-item
+              v-if="showEditFarm"
+              clickable
+              v-close-popup
+              :to="{ name: 'edit farm', params: { id: currentFarm.id } }"
+            >
               <q-item-section>
                 <q-item-label>
                   Edit
@@ -66,7 +71,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item clickable v-close-popup>
+            <q-item clickable v-close-popup to="/joinFarm">
               <q-item-section>
                 <q-item-label>
                   Join
@@ -74,7 +79,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item clickable v-close-popup to='/createFarm'>
+            <q-item clickable v-close-popup to="/createFarm">
               <q-item-section>
                 <q-item-label>
                   New
@@ -171,7 +176,7 @@ export default {
       return this.currentUser.farms.length > 1;
     },
     showEditFarm() {
-      return this.currentFarm.farm_id;
+      return this.currentFarm.id && this.currentFarm.user_type === 'admin';
     }
   },
   methods: {

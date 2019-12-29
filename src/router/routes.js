@@ -41,6 +41,18 @@ const routes = [
         name: 'edit farm',
         meta: { requireLogin: true }, 
         component: () => import('pages/farm/edit.vue')
+      },
+      {
+        path: '/joinFarm',
+        name: 'join farm',
+        meta: { requireLogin: true }, 
+        component: () => import('pages/farm/join.vue')
+      },
+      {
+        path: '/changeFarm',
+        name: 'change farm',
+        meta: { requireLogin: true }, 
+        component: () => import('pages/farm/change.vue')
       }
     ]
   }

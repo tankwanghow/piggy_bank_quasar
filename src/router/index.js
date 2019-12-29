@@ -34,7 +34,7 @@ export default function ({ store }) {
             next('/login')
             Notify.create({ message: i18n.t('auth.errors.login_required'), color: 'orange' })
           } else if (store.state.auth.currentUser.farms.length === 0 &&
-            to.name !== 'dashboard' && to.name !== 'farm') {
+            to.name !== 'dashboard' && to.name !== 'create farm' && to.name !== 'join farm') {
             next('/dashboard')
           }
           else { next() }
