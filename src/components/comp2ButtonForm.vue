@@ -17,6 +17,7 @@
             color="primary"
             :label="btnPryLabel"
             @click="$emit('submit')"
+            :disable="btnPryDisable"
           />
           <q-space />
           <q-btn color="secondary" :label="btnSecLabel" :to="btnSecTo" />
@@ -32,7 +33,8 @@ export default {
     title: String,
     btnPryLabel: String,
     btnSecLabel: String,
-    btnSecTo: String
+    btnSecTo: String,
+    btnPryDisable: false
   }
 };
 </script>
