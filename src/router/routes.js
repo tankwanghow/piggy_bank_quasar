@@ -28,7 +28,13 @@ const routes = [
       {
         path: '/signup',
         name: 'signup', 
-        component: () => import('pages/pgSignup.vue')
+        component: () => import('pages/user/signup.vue')
+      },
+      {
+        path: '/editUser',
+        name: 'edit user',
+        meta: { requireLogin: true }, 
+        component: () => import('pages/user/edit.vue')
       },
       {
         path: '/createFarm',
@@ -53,6 +59,12 @@ const routes = [
         name: 'change farm',
         meta: { requireLogin: true }, 
         component: () => import('pages/farm/change.vue')
+      },
+      {
+        path: '/withdrawFarm',
+        name: 'withdraw farm',
+        meta: { requireLogin: true }, 
+        component: () => import('pages/farm/withdraw.vue')
       }
     ]
   }

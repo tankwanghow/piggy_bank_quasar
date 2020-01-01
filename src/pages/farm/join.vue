@@ -4,6 +4,7 @@
     :btnPryLabel="$t('farm.labels.join')"
     :btnSecLabel="$t('farm.labels.cancel')"
     btnSecTo="/dashboard"
+    :btnPryDisable="disableJoin"
     @submit="joinFarm()"
   >
     <q-select
@@ -48,6 +49,11 @@ export default {
       error_farm_message: ""
     };
   },
+  computed: {
+    disableJoin() {
+      return this.farm === ""
+    }
+  },
   mixins: [share],
   methods: {
     joinFarm() {
@@ -67,8 +73,9 @@ export default {
           this.$q.notify({
             message: this.$t("farm.messages.wait_for_apporval"),
             color: "orange",
-            timeout: 20000
+            timeout: 10000
           });
+          this.$router.push("/dashboard")
         })
         .catch(err => {
           if (err.response) {

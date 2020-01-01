@@ -30,6 +30,12 @@
           rounded
           :label="$t('auth.labels.login') + ' / ' + $t('auth.labels.register')"
         />
+        <q-badge 
+          v-if="showUserBadge"
+          color="red" 
+          class="q-btn-dropdown-badge">
+          {{ currentUser.current_farm_pending_users }}  
+        </q-badge>
 
         <q-btn-dropdown
           v-if="currentUser.userid"
@@ -42,18 +48,52 @@
             <q-item>
               <q-item-section>
                 <q-item-label class="text-weight-bold">
-                  <q-avatar icon="house" />
-                  Farm
+                  <q-avatar icon="person" />
+                  {{ $t("account") }}
                 </q-item-label>
               </q-item-section>
             </q-item>
 
             <q-separator horizontal inset />
 
-            <q-item clickable v-close-popup to="/changeFarm">
+            <q-item clickable v-close-popup :to="{ name: 'edit user' }">
               <q-item-section>
                 <q-item-label>
-                  Change
+                  {{ $t("edit_profile") }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-close-popup @click="layout_logout">
+              <q-item-section>
+                <q-item-label>
+                  {{ $t("logout") }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-separator horizontal />
+
+            <q-item>
+              <q-item-section>
+                <q-item-label class="text-weight-bold">
+                  <q-avatar icon="house" />
+                  {{ $t("farm_label") }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-separator horizontal accountinset />
+
+            <q-item
+              v-if="showChangeFarm"
+              clickable
+              v-close-popup
+              to="/changeFarm"
+            >
+              <q-item-section>
+                <q-item-label>
+                  {{ $t("change_farm") }}
                 </q-item-label>
               </q-item-section>
             </q-item>
@@ -66,7 +106,20 @@
             >
               <q-item-section>
                 <q-item-label>
-                  Edit
+                  {{ $t("edit_farm") }} {{ currentFarm.nickname }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item
+              v-if="showWithdrawFarm"
+              clickable
+              v-close-popup
+              :to="{ name: 'withdraw farm' }"
+            >
+              <q-item-section>
+                <q-item-label>
+                  {{ $t("withdraw_farm") }}
                 </q-item-label>
               </q-item-section>
             </q-item>
@@ -74,7 +127,7 @@
             <q-item clickable v-close-popup to="/joinFarm">
               <q-item-section>
                 <q-item-label>
-                  Join
+                  {{ $t("join_farm") }}
                 </q-item-label>
               </q-item-section>
             </q-item>
@@ -82,36 +135,35 @@
             <q-item clickable v-close-popup to="/createFarm">
               <q-item-section>
                 <q-item-label>
-                  New
+                  {{ $t("create_farm") }}
                 </q-item-label>
               </q-item-section>
             </q-item>
 
             <q-separator horizontal />
 
-            <q-item>
+            <q-item v-if="showUsers">
               <q-item-section>
                 <q-item-label class="text-weight-bold">
-                  <q-avatar icon="account_box" />
-                  Account
+                  <q-avatar icon="group" />
+                  {{ $t("users") }}
                 </q-item-label>
               </q-item-section>
             </q-item>
 
             <q-separator horizontal inset />
 
-            <q-item clickable v-close-popup>
+            <q-item v-if="showUsers" clickable v-close-popup to="/users">
+              
               <q-item-section>
+                <q-badge
+                  v-if="showUserBadge"
+                  color="red" 
+                  class="q-item-label-badge">
+                  {{ currentUser.current_farm_pending_users }}
+                </q-badge>  
                 <q-item-label>
-                  Profile
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item clickable v-close-popup @click="layout_logout">
-              <q-item-section>
-                <q-item-label>
-                  Logout
+                  {{ $t("user_list") }}
                 </q-item-label>
               </q-item-section>
             </q-item>
@@ -151,6 +203,21 @@ export default {
   },
   computed: {
     ...mapState("auth", ["currentUser"]),
+    showUserBadge() {
+      if (this.currentFarm) {
+        return this.currentFarm.user_type === "admin" && 
+               this.currentUser.current_farm_pending_users > 0;
+      } else {
+        return false;
+      }
+    },
+    showUsers() {
+      if (this.currentFarm) {
+        return this.currentFarm.user_type === "admin";
+      } else {
+        return false;
+      }
+    },
     showLoginBtn() {
       return (
         !this.currentUser.userid &&
@@ -159,9 +226,11 @@ export default {
       );
     },
     currentFarm() {
-      return this.currentUser.farms.find(
-        e => e.id === this.currentUser.current_farm_id
+      if (this.currentUser.userid) {
+        return this.currentUser.farms.find(
+          e => e.id === this.currentUser.current_farm_id
       );
+      }
     },
     profileBtnLabel() {
       var curFarm = this.currentFarm;
@@ -176,7 +245,14 @@ export default {
       return this.currentUser.farms.length > 1;
     },
     showEditFarm() {
-      return this.currentFarm.id && this.currentFarm.user_type === 'admin';
+      if (this.currentFarm) {
+        return this.currentFarm.user_type === "admin";
+      } else {
+        return false;
+      }
+    },
+    showWithdrawFarm() {
+      return this.currentUser.farms.length > 0;
     }
   },
   methods: {
@@ -199,5 +275,16 @@ export default {
 .piggy_notify {
   font-weight: bold;
   font-size: 1.1rem;
+}
+.q-item-label-badge {
+  right: 38px;
+  top: -1px;
+  position: absolute
+}
+
+.q-btn-dropdown-badge {
+  position: relative;
+  top: -8px;
+  left: 15px;
 }
 </style>

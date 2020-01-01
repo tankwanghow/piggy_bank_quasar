@@ -1,5 +1,4 @@
 export default {
-
   labels: {
     create_farm: 'Create Farm',
     edit_farm: 'Edit Farm',
@@ -22,13 +21,17 @@ export default {
     change_current_farm: 'Change Current Farm To',
     change: 'Change',
     status: 'Status',
-    privilege: 'Privilege'
+    privilege: 'Privilege',
+    withdraw_from_farm: 'Withdraw From',
+    withdraw: 'Withdraw'
   },
   messages: {
     create_success: 'Farm created successfully.',
-    join_success: 'Joined Farm Successfully.',
+    join_success: 'Joined Farm Successfully',
     wait_for_apporval: 'Your Farm Administrator has been notify. Please wait for apporval.',
-    change_success: 'Successfully change Current Farm'
+    change_success: 'Changed Farm Successfully',
+    withdraw_success: 'Withdrawn From Farm Successfully',
+    update_success: 'Updated Farm Successfully'
   },
   errors: {
     already_joined_this_farm: 'already joined this farm'

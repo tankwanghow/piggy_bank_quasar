@@ -11,7 +11,10 @@ export default {
     gotoLogin: 'Go to Login',
     retypePassword: 'Re-type Password',
     farm: 'Farm',
-    logout: 'Logout'
+    logout: 'Logout',
+    update: 'Update',
+    cancel: 'Cancel',
+    edit_profile: 'Edit Profile'
   },
   messages: {
     good_login: 'Logged In Successfully',

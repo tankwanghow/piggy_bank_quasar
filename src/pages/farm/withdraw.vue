@@ -1,11 +1,11 @@
 <template>
   <farmForm
-    :title="$t('farm.labels.change_current_farm')"
-    :btnPryLabel="$t('farm.labels.change')"
+    :title="$t('farm.labels.withdraw_from_farm')"
+    :btnPryLabel="$t('farm.labels.withdraw')"
     :btnSecLabel="$t('farm.labels.cancel')"
-    :btnPryDisable="disableChange"
     btnSecTo="/dashboard"
-    @submit="changeFarm()"
+    :btnPryDisable="disableWithdraw"
+    @submit="withdrawFarm()"
   >
     <div>
 
@@ -17,7 +17,6 @@
               v-model="farm"
               :val="f.id"
               :color="f.user_status === 'active' ? 'green' : 'red'"
-              :disable="f.user_status === 'active' ? false : true"
             />
           </q-item-section>
           <q-item-section>
@@ -50,19 +49,19 @@ export default {
     };
   },
   computed: {
-    disableChange() {
+    disableWithdraw() {
       return this.farm === null
     }
   },
   methods: {
-    changeFarm() {
+    withdrawFarm() {
       this.$axios
-        .patch("/farm_users/0", {
-          farm_user: { farm_id: this.farm }
+        .delete("/farm_users/0", {
+          data: { farm_id: this.farm }
         })
         .then(res => {
           this.$q.notify({ 
-            message: this.$t('farm.messages.change_success'),
+            message: this.$t('farm.messages.withdraw_success'), 
             color: 'green'
           })
           this.$router.push("/dashboard")
@@ -84,7 +83,6 @@ export default {
 <style scoped>
 .red {
   color: red;
-  cursor: not-allowed !important;
 }
 
 .green {

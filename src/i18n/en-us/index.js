@@ -6,7 +6,18 @@ export default {
   success: 'Action was successful',
   auth, farm,
   appName: 'Piggy Bank',
+  account: 'Account',
+  farm_label: 'Farm',
+  edit_profile: 'Edit Profile',
+  logout: 'Logout',
   back_to_welcome: 'Back to Welcome Page',
+  create_farm: 'Create a new Farm',
+  withdraw_farm: 'Withdraw from Farm',
+  join_farm: 'Join Existing Farm',
+  change_farm: 'Change to Other Farm',
+  edit_farm: 'Edit',
+  users: 'Users',
+  user_list: 'User List',
   errors: {
     network_error: 'Network error. Please check your internet connection'
   },
