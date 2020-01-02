@@ -10,12 +10,12 @@
     <div>
 
       <q-list>
-        <q-item v-for="f in farms" :key="f.id" tag="label" v-ripple>
+        <q-item v-for="f in farms" :key="f.farm_user_id" tag="label" v-ripple>
           <q-item-section avatar top>
             <q-radio
               keep-color
-              v-model="farm"
-              :val="f.id"
+              v-model="farm_id"
+              :val="f.farm_id"
               :color="f.user_status === 'active' ? 'green' : 'red'"
             />
           </q-item-section>
@@ -44,21 +44,22 @@ export default {
   },
   data() {
     return {
-      farm: this.$store.state.auth.currentUser.current_farm_id,
+      farm_id: this.$store.state.auth.currentUser.current_farm_id,
       farms: this.$store.state.auth.currentUser.farms
     };
   },
   computed: {
     disableWithdraw() {
-      return this.farm === null
+      return this.farm_id === null
+    },
+    farm_user_id() {
+      return this.farms.find((f) => { return f.farm_id === this.farm_id }).farm_user_id
     }
   },
   methods: {
     withdrawFarm() {
       this.$axios
-        .delete("/farm_users/0", {
-          data: { farm_id: this.farm }
-        })
+        .delete("/farm_users/" + this.farm_user_id)
         .then(res => {
           this.$q.notify({ 
             message: this.$t('farm.messages.withdraw_success'), 

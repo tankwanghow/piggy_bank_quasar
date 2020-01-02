@@ -10,12 +10,12 @@
     <div>
 
       <q-list>
-        <q-item v-for="f in farms" :key="f.id" tag="label" v-ripple>
+        <q-item v-for="f in farms" :key="f.farm_user_id" tag="label" v-ripple>
           <q-item-section avatar top>
             <q-radio
               keep-color
-              v-model="farm"
-              :val="f.id"
+              v-model="farm_id"
+              :val="f.farm_id"
               :color="f.user_status === 'active' ? 'green' : 'red'"
               :disable="f.user_status === 'active' ? false : true"
             />
@@ -45,20 +45,23 @@ export default {
   },
   data() {
     return {
-      farm: this.$store.state.auth.currentUser.current_farm_id,
+      farm_id: this.$store.state.auth.currentUser.current_farm_id,
       farms: this.$store.state.auth.currentUser.farms
     };
   },
   computed: {
     disableChange() {
-      return this.farm === null
+      return this.farm_id === null
+    },
+    farm_user_id() {
+      return this.farms.find((f) => { return f.farm_id === this.farm_id }).farm_user_id
     }
   },
   methods: {
     changeFarm() {
       this.$axios
-        .patch("/farm_users/0", {
-          farm_user: { farm_id: this.farm }
+        .patch("/farm_users/" + this.farm_user_id, {
+          farm_user: { default_farm: true }
         })
         .then(res => {
           this.$q.notify({ 

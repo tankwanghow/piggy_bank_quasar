@@ -31,6 +31,7 @@ export default {
       })
       .catch(err => {
         this.$q.notify({ message: err.message, color: 'red' })
+        this.$router.push("/dashboard")
       })
   },
   methods: {
