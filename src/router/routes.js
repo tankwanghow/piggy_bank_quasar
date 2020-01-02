@@ -31,6 +31,12 @@ const routes = [
         component: () => import('pages/user/signup.vue')
       },
       {
+        path: '/user_list',
+        name: 'user list', 
+        meta: { requireLogin: true }, 
+        component: () => import('pages/user/index.vue')
+      },
+      {
         path: '/editUser',
         name: 'edit user',
         meta: { requireLogin: true }, 

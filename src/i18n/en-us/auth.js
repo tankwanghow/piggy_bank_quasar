@@ -14,7 +14,9 @@ export default {
     logout: 'Logout',
     update: 'Update',
     cancel: 'Cancel',
-    edit_profile: 'Edit Profile'
+    edit_profile: 'Edit Profile',
+    done: 'Done',
+    user_list: 'User List'
   },
   messages: {
     good_login: 'Logged In Successfully',
