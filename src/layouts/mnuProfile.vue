@@ -19,6 +19,14 @@
       </q-item-section>
     </q-item>
 
+    <q-item clickable v-close-popup :to="{ name: 'setting farm' }">
+      <q-item-section>
+        <q-item-label>
+          {{ $t("farm_setting") }}
+        </q-item-label>
+      </q-item-section>
+    </q-item>
+
     <q-item v-if="showUsers" clickable v-close-popup to="/user_list">
       <q-item-section>
         <q-badge v-if="showUserBadge" color="red" class="q-item-label-badge">

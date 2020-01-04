@@ -3,7 +3,7 @@
     :title="$t('farm.labels.create_farm')"
     :btnPryLabel="$t('farm.labels.save')"
     :btnSecLabel="$t('farm.labels.cancel')"
-    btnSecTo="/dashboard"
+    btnSecTo="/settingFarm"
     @submit="createFarm()"
   >
   <fields ref='fields'/>
@@ -27,7 +27,7 @@ export default {
         })
         .then(res => {
           this.$q.notify({ message: this.$t('farm.messages.create_success'), color: 'green' })
-          this.$router.push("/dashboard")
+          this.$router.push("/settingFarm")
         })
         .catch(err => {
           if (err.response) {

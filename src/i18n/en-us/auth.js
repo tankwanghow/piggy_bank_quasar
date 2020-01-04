@@ -23,7 +23,8 @@ export default {
     logged_out: 'Logged Out, Bye.',
     already_logged_in: 'Already logged in.',
     good_signup: 'Registered Successfully.',
-    logging_in: 'Logging in...'
+    logging_in: 'Logging in...',
+    update_success: 'Updated Successfully.'
   },
   errors: {
     invalid_credentials: 'Email address or password is incorrect.',

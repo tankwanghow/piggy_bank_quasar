@@ -2,7 +2,7 @@
   <editForm
     :title="$t('auth.labels.edit_profile')"
     :btnPryLabel="$t('auth.labels.update')"
-    :btnSecLabel="$t('auth.labels.cancel')"
+    :btnSecLabel="currentUser.current_farm_id ? $t('back_to_dashboard') : $t('back')"
     btnSecTo="/dashboard"
     @submit="update()"
   >
@@ -12,8 +12,12 @@
 
 <script>
 import share from 'components/utils'
+import { mapState } from "vuex"
 
 export default {
+  computed: {
+  ...mapState("auth", ["currentUser"])
+  },
   components: {
     editForm: require("components/comp2ButtonForm.vue").default,
     fields: require("pages/user/fields.vue").default

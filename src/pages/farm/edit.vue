@@ -3,7 +3,7 @@
     :title="$t('farm.labels.edit_farm')"
     :btnPryLabel="$t('farm.labels.save')"
     :btnSecLabel="$t('farm.labels.cancel')"
-    btnSecTo="/dashboard"
+    btnSecTo="/settingFarm"
     @submit="updateFarm()"
   >
   <fields ref='fields'/>
@@ -31,7 +31,7 @@ export default {
       })
       .catch(err => {
         this.$q.notify({ message: err.message, color: 'red' })
-        this.$router.push("/dashboard")
+        this.$router.push("/settingFarm")
       })
   },
   methods: {
@@ -43,7 +43,7 @@ export default {
         })
         .then(res => {
           this.$q.notify({ message: this.$t('farm.messages.update_success'), color: 'green' })
-          this.$router.push("/dashboard")
+          this.$router.push("/settingFarm")
         })
         .catch(err => {
           if (err.response) {

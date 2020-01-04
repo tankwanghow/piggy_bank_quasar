@@ -1,13 +1,18 @@
 <template>
   <cform
     :title="$t('auth.labels.user_list')"
-    :btnSecLabel="$t('auth.labels.done')"
+    :btnSecLabel="$t('back_to_dashboard')"
     btnSecTo="/dashboard"
     @submit="update()"
     btnPryHide
     formClass="q-mt-md q-mx-auto col-lg-6 col-md-8 col-sm-9 col-xs-11 bg-grey-2 q-pa-md"
   >
     <q-list>
+      
+      <q-item v-if="users.length === 0">
+        {{ "No User Found." }}
+      </q-item>
+
       <q-item v-for="(user, index) in users" :key="user.farm_user_id">
         <q-item-section avatar>
           <q-avatar color="primary" text-color="white">
@@ -25,7 +30,7 @@
             label="User Type"
             dense
             @input="
-              user_changed(
+              userChanged(
                 users[index].user_type,
                 'user_type',
                 users[index].farm_user_id
@@ -40,13 +45,22 @@
             label="User Status"
             dense
             @input="
-              user_changed(
+              userChanged(
                 users[index].user_status,
                 'user_status',
                 users[index].farm_user_id
               )
             "
           />
+        </q-item-section>
+        <q-item-section>
+          <q-btn 
+            round 
+            color="red" 
+            icon="delete" 
+            size="sm" 
+            unelevated
+            @click="deleteUser(users[index].farm_user_id)"/>
         </q-item-section>
       </q-item>
     </q-list>
@@ -66,9 +80,13 @@ export default {
     };
   },
   created() {
-    this.$axios
+    this.setUserList()
+  },
+  methods: {
+    setUserList () {
+      this.$axios
         .get("/farm_users/")
-      .then(res => {
+        .then(res => {
         this.users = res.data.filter(u => {
           return u.user_id !== this.$store.state.auth.currentUser.userid;
         });
@@ -76,9 +94,8 @@ export default {
       .catch(err => {
         this.$q.notify({ message: err.message, color: "red" });
       });
-  },
-  methods: {
-    user_changed(value, field, farm_user_id) {
+    },
+    userChanged(value, field, farm_user_id) {
       var farm_user = {};
       farm_user[field] = value;
       this.$axios
@@ -88,6 +105,20 @@ export default {
         .then(res => {
           this.$q.notify({
             message: "Changed User to " + value,
+            color: "green"
+          });
+        })
+        .catch(err => {
+          this.$q.notify({ message: err.message, color: "red" });
+        });
+    },
+    deleteUser(farm_user_id) {
+      this.$axios
+        .delete("/farm_users/" + farm_user_id)
+        .then(res => {
+          this.setUserList()
+          this.$q.notify({
+            message: "User Deleted",
             color: "green"
           });
         })

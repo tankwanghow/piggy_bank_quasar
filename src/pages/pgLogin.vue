@@ -59,8 +59,12 @@ export default {
     login() {
       this.$store.dispatch('auth/login', { user: this.formData } )
         .then(res => {
-          this.$router.push("/dashboard") 
-          })
+          if (this.$store.state.auth.currentUser.farms.length === 0) {
+            this.$router.push("/settingFarm") 
+          } else {
+            this.$router.push("/dashboard") 
+          }
+        })
         .catch(err => {
           if (err.response) {
             if (err.response.status == 401) {

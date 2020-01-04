@@ -3,7 +3,7 @@
     :title="$t('farm.labels.join_existing_farm')"
     :btnPryLabel="$t('farm.labels.join')"
     :btnSecLabel="$t('farm.labels.cancel')"
-    btnSecTo="/dashboard"
+    btnSecTo="/settingFarm"
     :btnPryDisable="disableJoin"
     @submit="joinFarm()"
   >
@@ -75,7 +75,7 @@ export default {
             color: "orange",
             timeout: 10000
           });
-          this.$router.push("/dashboard")
+          this.$router.push("/settingFarm")
         })
         .catch(err => {
           if (err.response) {

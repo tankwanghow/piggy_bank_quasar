@@ -3,7 +3,7 @@
     :title="$t('farm.labels.withdraw_from_farm')"
     :btnPryLabel="$t('farm.labels.withdraw')"
     :btnSecLabel="$t('farm.labels.cancel')"
-    btnSecTo="/dashboard"
+    btnSecTo="/settingFarm"
     :btnPryDisable="disableWithdraw"
     @submit="withdrawFarm()"
   >
@@ -65,7 +65,7 @@ export default {
             message: this.$t('farm.messages.withdraw_success'), 
             color: 'green'
           })
-          this.$router.push("/dashboard")
+          this.$router.push("/settingFarm")
         })
         .catch(err => {
           if (err.response) {

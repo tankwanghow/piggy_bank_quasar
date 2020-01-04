@@ -71,7 +71,19 @@ const routes = [
         name: 'withdraw farm',
         meta: { requireLogin: true }, 
         component: () => import('pages/farm/withdraw.vue')
-      }
+      },
+      {
+        path: '/deleteFarm',
+        name: 'delete farm',
+        meta: { requireLogin: true }, 
+        component: () => import('pages/farm/delete.vue')
+      },
+      {
+        path: '/settingFarm',
+        name: 'setting farm',
+        meta: { requireLogin: true }, 
+        component: () => import('pages/farm/settings.vue')
+      },
     ]
   }
 ]

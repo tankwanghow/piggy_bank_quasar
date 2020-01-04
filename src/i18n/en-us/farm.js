@@ -12,9 +12,10 @@ export default {
     weight_unit: 'Weight Unit',
     save: 'Save',
     cancel: 'Cancel',
-    user_no_farm: 'Current you have no farm.',
+    currently_you: 'Currently you',
+    have_no_farm: 'have no farm.',
+    are_in: 'are in ',
     user_create_farm: 'You can create a new Farm',
-    or: '- OR -',
     joining: 'Joining',
     join: 'Join',
     join_existing_farm: 'Join Existing Farm',
@@ -23,7 +24,18 @@ export default {
     status: 'Status',
     privilege: 'Privilege',
     withdraw_from_farm: 'Withdraw From',
-    withdraw: 'Withdraw'
+    withdraw: 'Withdraw',
+    delete: 'Delete',
+    delete_farm: "DELETE FARM!!",
+    active_users: 'Active Users',
+    pending_users: 'Pending Users',
+    delete_farm_warning: "WARNING!! You cannot restore DELETED Farm. Is Lost Forever. Please make sure you want to do it.",
+    yes_delete: 'Yes, I want to Delete',
+    create_farm: 'Create a new Farm',
+    withdraw_farm: 'Withdraw from Farm',
+    join_farm: 'Join Existing Farm',
+    change_farm: 'Change to Other Farm',
+    edit_farm: 'Edit',
   },
   messages: {
     create_success: 'Farm created successfully.',
@@ -31,7 +43,8 @@ export default {
     wait_for_apporval: 'Your Farm Administrator has been notify. Please wait for apporval.',
     change_success: 'Changed Farm Successfully',
     withdraw_success: 'Withdrawn From Farm Successfully',
-    update_success: 'Updated Farm Successfully'
+    update_success: 'Updated Farm Successfully',
+    delete_success: 'Farm Deleted Successfully'
   },
   errors: {
     already_joined_this_farm: 'already joined this farm'

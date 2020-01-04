@@ -42,14 +42,12 @@
           :label="profileBtnLabel"
         >
         <div class='profile-btn-dropdown'>
-          <mnuFarm :currentFarm="currentFarm" :currentUser="currentUser" />
-          <q-separator horizontal />
           <mnuProfile
             :currentFarm="currentFarm"
             :currentUser="currentUser"
             :showUserBadge="showUserBadge"
             :showUsers="showUsers"
-          />
+          />    
         </div>
         </q-btn-dropdown>
       </q-toolbar>
@@ -75,8 +73,7 @@ import { mapState } from "vuex";
 
 export default {
   components: {
-    mnuProfile: require("layouts/mnuProfile.vue").default,
-    mnuFarm: require("layouts/mnuFarm.vue").default
+    mnuProfile: require("layouts/mnuProfile.vue").default
   },
   data() {
     return {

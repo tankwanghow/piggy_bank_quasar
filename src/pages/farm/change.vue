@@ -4,7 +4,7 @@
     :btnPryLabel="$t('farm.labels.change')"
     :btnSecLabel="$t('farm.labels.cancel')"
     :btnPryDisable="disableChange"
-    btnSecTo="/dashboard"
+    btnSecTo="/settingFarm"
     @submit="changeFarm()"
   >
     <div>
@@ -68,7 +68,7 @@ export default {
             message: this.$t('farm.messages.change_success'),
             color: 'green'
           })
-          this.$router.push("/dashboard")
+          this.$router.push("/settingFarm")
         })
         .catch(err => {
           if (err.response) {
