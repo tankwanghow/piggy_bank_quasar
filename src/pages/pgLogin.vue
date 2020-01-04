@@ -2,7 +2,7 @@
   <loginForm
     :title="$t('auth.labels.login')"
     :btnPryLabel="$t('auth.labels.login')"
-    :btnSecLabel="$t('auth.labels.register')"
+    :btnSecLabel="$t('auth.labels.signup')"
     btnSecTo="/signup"
     @submit="login()"
   >

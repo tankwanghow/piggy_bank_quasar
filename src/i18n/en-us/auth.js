@@ -7,7 +7,7 @@ export default {
     remember_me: 'Remember me',
     name: 'Name',
     password_forgot: 'Forgot your password?',
-    register: 'Register',
+    signup: 'Signup',
     gotoLogin: 'Go to Login',
     retypePassword: 'Re-type Password',
     farm: 'Farm',
@@ -22,7 +22,7 @@ export default {
     good_login: 'Logged In Successfully',
     logged_out: 'Logged Out, Bye.',
     already_logged_in: 'Already logged in.',
-    good_signup: 'Registered Successfully.',
+    good_signup: 'Signed Up Successfully.',
     logging_in: 'Logging in...',
     update_success: 'Updated Successfully.'
   },

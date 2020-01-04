@@ -1,7 +1,7 @@
 <template>
   <signupForm
-    :title="$t('auth.labels.register')"
-    :btnPryLabel="$t('auth.labels.register')"
+    :title="$t('auth.labels.signup')"
+    :btnPryLabel="$t('auth.labels.signup')"
     :btnSecLabel="$t('auth.labels.gotoLogin')"
     btnSecTo="/login"
     @submit="signup()"
@@ -33,7 +33,7 @@ export default {
               password: this.$refs.fields.$data.form.data.password 
             }
           })
-          .then(res => {this.$router.push("/dashboard") } )
+          .then(res => {this.$router.push("/settingFarm") } )
         })
         .catch(err => {
           if (err.response) {

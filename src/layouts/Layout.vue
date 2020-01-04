@@ -16,7 +16,8 @@
           flat
           :label="$t('appName')"
           :to="currentUser.userid ? '/dashboard' : '/'"
-          class="text-h6 text-weight-bolder"
+          class="text-h6"
+          dense
         />
 
         <q-space />
@@ -27,8 +28,9 @@
           icon="account_box"
           no-caps
           flat
+          dense
           rounded
-          :label="$t('auth.labels.login') + ' / ' + $t('auth.labels.register')"
+          :label="$t('auth.labels.login') + ' / ' + $t('auth.labels.signup')"
         />
         <q-badge v-if="showUserBadge" color="red" class="q-btn-dropdown-badge">
           {{ currentUser.current_farm_pending_users }}
