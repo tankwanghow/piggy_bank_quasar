@@ -5,6 +5,7 @@
     :btnSecLabel="$t('farm.labels.cancel')"
     btnSecTo="/settingFarm"
     @submit="updateFarm()"
+    formClass="q-mt-md q-mx-auto col-lg-6 col-md-9 col-sm-11 col-xs-11 bg-grey-2 q-pa-md"
   >
   <fields ref='fields'/>
   </farmForm>

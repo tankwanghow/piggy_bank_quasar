@@ -11,6 +11,7 @@
         spellcheck="false"
       >
         <slot></slot>
+        <br/>
         <div class="row">
           <q-btn
             v-if="!btnPryHide"
